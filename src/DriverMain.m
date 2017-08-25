@@ -51,14 +51,14 @@
 
   uS =  zeros(N,1);
 %  uN =  min(1,10*sin(pi*xc'/xLen));
-%  uN =  ones(N,1);
-  uN =  zeros(N,1);
-%  uW =  zeros(1,M);
+  uN =  ones(N,1);
+%  uN =  zeros(N,1);
+  uW =  zeros(1,M);
 %  uW =  ones(1,M);
-  uW =  max(0,-sin(yc*pi*2));
-%  uE =  zeros(1,M);
+%  uW =  max(0,-sin(yc*pi*2));
+  uE =  zeros(1,M);
 %  uE =  ones(1,M);
-  uE =  max(0,sin(yc*pi*2));
+%  uE =  max(0,sin(yc*pi*2));
 
   vS = zeros(N,1);
   vN = zeros(N,1);
@@ -79,7 +79,7 @@
   Vbc(:,M) = vN*dt/2/Re/dy/dy;
   Vbc = Vbc(:);
 
-  for i=1:2000
+  for i=1:1000
 
     %...semi-Lagrangian advection
     uast    = SemiLagrAdvect(u,v,u,uS,uN,uW,uE);

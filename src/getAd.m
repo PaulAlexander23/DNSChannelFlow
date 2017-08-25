@@ -6,24 +6,25 @@ function getAd(N,M)
 
   global Rd Ad Pd
   global xLen yLen
-  global dt D
-  global dx dy
-  
+  global dt Re
+
   %...number of levels and initialization
   kk   = length(Pd);
+  dx   = xLen/N;
+  dy   = yLen/M;
   A    = cell(1,kk+1);
 
   %...Laplace operator
   AAx      = spdiags(ones(N,1)*[1 -2 1]/dx/dx,-1:1,N,N);
-  AAx(1,1) = -3/dx/dx;
-  AAx(N,N) = -3/dx/dx;
+  AAx(1,N) = 1/dx/dx;
+  AAx(N,1) = 1/dx/dx;
 
   AAy      = spdiags(ones(M,1)*[1 -2 1]/dy/dy,-1:1,M,M);
   AAy(1,1) = -3/dy/dy;
   AAy(M,M) = -3/dy/dy;
 
   AAA  = kron(speye(M),AAx) + kron(AAy,speye(N));
-  DDD  = speye(N*M) - dt/2*D*AAA;
+  DDD  = speye(N*M) - dt/2/Re*AAA;
 
   %...lower-level operators (Galerkin condition)
   Ad{1} = DDD;

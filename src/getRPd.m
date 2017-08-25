@@ -24,8 +24,10 @@ function getRPd(N,M)
     for j=1:NN-1
       PPx(2*j:2*j+1,j:j+1) = [0.75 0.25; 0.25 0.75];
     end
-    PPx(1,1)     = 0.5;
-    PPx(2*NN,NN) = 0.5;
+    PPx(2*NN,1) = 0.25;
+    PPx(2*NN,NN) = 0.75;
+    PPx(1,1) = 0.75;
+    PPx(1,NN) = 0.25;
     NN = NN/2;
 
     PPy = sparse(2*MM,MM);
