@@ -9,15 +9,21 @@ function qnew = SemiLagrAdvect(u,v,q,qS,qN,qW,qE)
    q = reshape(q,N,M);
 
    %...embedding
-   qq              = zeros(N,M+2);
-   qq(:,2:M+1) = q;
+   qq              = zeros(N+2,M+2);
+   qq(2:N+1,2:M+1) = q;
 
-   %...set the ghost values (two edges)
-   qq(:,1)   = 2*qS-qq(:,2);
-   qq(:,M+2) = 2*qN-qq(:,M+1);
+   %...set the ghost values (four edges)
+   qq(1,2:M+1)   = 2*qW-qq(2,2:M+1);
+   qq(N+2,2:M+1) = 2*qE-qq(N+1,2:M+1);
+   qq(2:N+1,1)   = 2*qS-qq(2:N+1,2);
+   qq(2:N+1,M+2) = 2*qN-qq(2:N+1,M+1);
+   %...set the ghost values (four corners)
+   qq(1,1)       = -qq(2,2);
+   qq(N+2,1)     = -qq(N+1,2);
+   qq(N+2,M+2)   = -qq(N+1,M+1);
+   qq(1,M+2)     = -qq(2,M+1);
 
-   
-   q1   = qq(:,2:M+1);
+   q1   = qq(2:N+1,2:M+1);
 
    q2p  = qq(3:N+2,2:M+1);
    q2m  = qq(1:N,2:M+1);
